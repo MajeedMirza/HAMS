@@ -1,0 +1,33 @@
+{
+  "name": "helping-hand",
+  "version": "1.0.0",
+  "description": "Helping Hand",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.1.0",
+    "body-parser": "^1.13.2",
+    "cors": "^2.8.0",
+    "ejs": "^2.3.3",
+    "express": "^4.13.0",
+    "express-jwt": "^3.0.1",
+    "express-session": "^1.11.3",
+    "jsonwebtoken": "^5.0.2",
+    "lodash": "^3.10.0",
+    "moment": "^2.18.1",
+    "mongodb": "^2.2.28",
+    "monk": "^6.0.4",
+    "node-schedule": "^1.2.3",
+    "nodemailer": "^4.0.1",
+    "promise": "^7.1.1",
+    "q": "^1.4.1",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4",
+    "rootpath": "^0.1.2",
+    "shortid": "^2.2.8",
+    "simple-encryptor": "^1.1.0"
+  },
+  "license": "MIT"
+}
