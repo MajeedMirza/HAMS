@@ -1,18 +1,18 @@
-# Home Automation and Monitoring System
+# Home Automation and Monitoring System Server
 
 ### Installation
 Get [Node.js](https://nodejs.org/en/)
 
 Clone the project
 
-npm is the default package manager for Node (included in Node installation) and is used to install the [dependencies]() for the project. 
+npm is the default package manager for Node (included in Node installation) and is used to install the [dependencies](https://github.com/MajeedMirza/HAMS/blob/master/Server/package.json) for the project. 
 
 From within the project folder run this command in the terminal to install all required packages:
 ```
 npm install
 ``` 
 
-The main server file which launches the project is called [server.js]().
+The main server file which launches the project is called [server.js](https://github.com/MajeedMirza/HAMS/blob/master/Server/server.js).
 
 To start the server use this command in the terminal:
 ```

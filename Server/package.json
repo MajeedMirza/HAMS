@@ -1,7 +1,7 @@
 {
-  "name": "helping-hand",
+  "name": "hams",
   "version": "1.0.0",
-  "description": "Helping Hand",
+  "description": "Home Automation and Monitoring System",
   "repository": {
     "type": "git",
     "url": ""
