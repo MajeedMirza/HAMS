@@ -11,9 +11,10 @@ var fs = require('fs');
 var path = require('path');
 var request = require('request');
 var cors = require('cors');
+var io = require('config/socket')
 
 config.port = "3001";
-config.Ip = "localhost";
+config.Ip = "172.17.79.27";
 config.portUrl = "http://" + config.Ip + ":" + config.port;
 config.apiUrl = config.portUrl + "/api"
 
@@ -40,5 +41,6 @@ app.get('/', function (req, res) {
 
 
 var server = app.listen(config.port, config.Ip, function () {
+    io.connect(server);
     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
 });
