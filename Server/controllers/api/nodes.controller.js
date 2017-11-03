@@ -7,6 +7,7 @@ var nodeService = require('services/node.service');
 router.post('/register', registerNode);
 router.post('/values', insertValues);
 router.get('/getAll', getAll);
+router.get('/garage/:open', garage)
 
 
 module.exports = router;
@@ -35,6 +36,16 @@ function insertValues(req, res) {
 
 function getAll(req, res) {
     nodeService.getAll()
+        .then(function (nodes) {
+            res.send(nodes);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function garage(req, res) {
+    nodeService.garage(req.params.open)
         .then(function (nodes) {
             res.send(nodes);
         })
