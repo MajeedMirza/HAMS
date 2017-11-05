@@ -42,5 +42,14 @@ app.get('/', function (req, res) {
 
 var server = app.listen(config.port, config.Ip, function () {
     io.connect(server);
+    io.io().on('connection', function(socket){
+        console.log('a user connected');
+        socket.on('disconnect', function(){
+            console.log('user disconnected');
+        });
+    });
     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
 });
+
+
+   
