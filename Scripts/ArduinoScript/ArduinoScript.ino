@@ -92,7 +92,6 @@ String checkData(){
 void getFlame(){
   flameValue = analogRead(flame_in);
 }
-
 void getSmoke(){
   smoke = analogRead(smokeIn);
 }
