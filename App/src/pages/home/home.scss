@@ -1,3 +1,5 @@
 page-home {
-
+    ion-card-header {
+        color: map-get($colors, primary) !important;
+    }
 }
