@@ -63,6 +63,7 @@ void loop()
     getSmoke();
     getWater();
     getTempAndHum();
+    String result = checkData();
     createAndFormatData();
     sendData();
   }
@@ -75,10 +76,22 @@ void loop()
   else {READSENSORS=false;}
 }
 
+String checkData(){
+    if (){}
+    else if (){}
+    else if (){}
+    else if (){}
+    else if (){}
+    else if (){}
+    else if (){}
+    else if (){}
+    ## stub out the other methods and check this fucntion 
+  
+  }
+
 void getFlame(){
   flameValue = analogRead(flame_in);
 }
-
 void getSmoke(){
   smoke = analogRead(smokeIn);
 }
@@ -94,6 +107,7 @@ void sendData(){
 }
 void sendAlarm(String Alarmtype){
   DATA=String("{'alarm':"+ Alarmtype + "}");
+  Serial.println(DATA);
 }
 void createAndFormatData(){
   String garageStr; 
@@ -101,7 +115,7 @@ void createAndFormatData(){
     garageStr="OPEN";
   }
   else{garageStr="CLOSED";}
-  DATA = String("{‘temp’:" + String(temp) + ", ‘humid’:" + String(hum) +  ", ‘flame’:"+ String(flameValue) +", ‘water’:"+ String(waterPresent) +", ‘smoke’ :" +String(smoke)+ ", ‘garage’:"+ garageStr +", ‘ultrasonic’:" +String(cm)+ "}"); 
+  DATA = String("{temp:" + String(temp) + ",humid:" + String(hum) +  ", flame:"+ String(flameValue) +", water:"+ String(waterPresent) +", smoke :" +String(smoke)+ ", garage:"+ garageStr +", ultrasonic:" +String(cm)+ "}"); 
 }
 void Buzz(boolean buzz){
   if (buzz) {
