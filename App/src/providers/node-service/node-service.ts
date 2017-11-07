@@ -38,13 +38,12 @@ export class NodeServiceProvider {
         })
     }
 
-    createNode(lat: string, lng: string, type: string, name: string, id: string) {
+    createNode(name: string, id: string, type: string, location: string) {
         var node = {
-            lat: lat,
-            lng: lng,
-            type: type,
             name: name,
-            id: id
+            id: id,
+            type: type,
+            location: location
         }
         //TODO: Add if function to prevent corrupt data
         return new Promise((resolve, reject) => {
