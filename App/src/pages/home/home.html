@@ -4,10 +4,19 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="createNode()"><ion-icon name="add"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingText="Pull to refresh"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
   <ion-card>
     <ion-card-header>
       Node 1

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { AddNodePage } from '../add-node/add-node'
 import { NodeServiceProvider } from '../../providers/node-service/node-service';
 
 @Component({
@@ -32,5 +32,19 @@ export class HomePage {
       console.log(err);
     });
   }
+
+  createNode() {
+    this.navCtrl.push(AddNodePage);
+    console.log("hi");
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    setTimeout(() => {
+        console.log('Async operation has ended');
+        refresher.complete();
+    }, 1500);
+  }
+
 
 }
