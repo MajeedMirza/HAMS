@@ -19,12 +19,12 @@ def _receive_events_thread():
     socketIO.wait()
 
 def main():
-    ## start garage monitor
+    ## start garage monitor listner thread
     receive_events_thread = Thread(target=_receive_events_thread)
     receive_events_thread.daemon = True
     receive_events_thread.start()
     while True:
-        values=getSensorData()
+        values=getSensorData() ## get the sensor data
         if "alarm" in values:
             sendAlarm(values)
         else:
@@ -50,8 +50,7 @@ def createJSON(data):
 
 def sendJSON(data):
     response = requests.post(SERVERAPI, json=data)
-    ## TODO error handling for response
-
+    ## maybe need to add error handling
 def GarageHandler(*args):
     ## TODO IF below values is rrue sound an alarm set a global variable
     args[0]["open"]
@@ -99,5 +98,6 @@ def checkAlarm():
 
 def timestamp():
     return datetime.datetime.now().isoformat()
+
 if __name__== "__main__":
   main()
