@@ -12,14 +12,14 @@ int step_pin_4 = 11;
 #define DHTTYPE DHT22 
 DHT dht(DHTPIN, DHTTYPE);
 // output pin for the buzzer
-int buzz_out=12;
+int buzz_out=5;
 // input pin for the smoke sensor
 int smokeIn = A0;
 // input pins for the ultrasonic sensor
-int TrigPin = 6; 
+int TrigPin = 6;
 int EchoPin = 7;
 // input pin for the water sensor
-int WaterInPin = 4; 
+int WaterInPin = 4;
 // input pin for the flame sensor
 int flame_in=A1;
 // global variables to store the sensor readings
@@ -31,6 +31,7 @@ float cm;
 int smoke;
 String DATA;
 boolean READSENSORS;
+String alarm;
 int loopCount;
 //global variable to monitor garage status
 boolean open;
@@ -50,6 +51,7 @@ void setup()
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(smokeIn, INPUT);
   READSENSORS= true;
+  alarm = "";
   loopCount=0;
   dht.begin();
 }
@@ -65,6 +67,11 @@ void loop()
     getWater();
     getTempAndHum();
     createAndFormatData();
+    if (alarm != ""){
+      sendAlarm();
+      Buzz(true);
+      }
+    else {Buzz(false);}
     sendData();
   }
   delay(500); //Sleep for 30 SECONDS
@@ -72,29 +79,47 @@ void loop()
   if (loopCount>=6){ // CHECK SENSORS EVERY 3 MINS
     loopCount=0;
     READSENSORS= true;
+    alarm = "";
   }
   else {READSENSORS=false;}
 }
 
 void getFlame(){
   flameValue = analogRead(flame_in);
+  if (flameValue > 100){
+    alarm = "FLAME";}
 }
 
 void getSmoke(){
   smoke = analogRead(smokeIn);
+  if (smoke > 300){
+    alarm = "SMOKE";
+    }
 }
 void getWater(){
   waterPresent = digitalRead(WaterInPin);
+  if (waterPresent > 0){
+    alarm = "WATER";
+    }
 }
 void getTempAndHum(){ // need a dealy of 2 seconds between calls
     hum = dht.readHumidity();
     temp= dht.readTemperature();
+    if (temp > 42){
+      alarm = "HIGH TEMP";
+      }
+    if (temp < 0) {
+      alarm = "LOW TEMP";
+      }
+    if (hum > 80){
+      alarm = "HUMIDITY";
+      }
 }
 void sendData(){
   Serial.println(DATA);
 }
-void sendAlarm(String Alarmtype){
-  DATA=String("{'alarm':"+ Alarmtype + "}");
+void sendAlarm(){
+  Serial.println(String("{'alarm':"+ alarm + "}"));
 }
 void createAndFormatData(){
   String garageStr;
@@ -105,14 +130,12 @@ void createAndFormatData(){
   DATA = String("{\"temp\":" + String(temp) + ", \"humid\":" + String(hum) +  ", \"flame\":"+ String(flameValue) +", \"water\":"+ String(waterPresent) +", \"smoke\" :" +String(smoke)+ ", \"garage\":"+ garageStr +", \"ultrasonic\":" +String(cm)+ "}");
 }
 void Buzz(boolean buzz){
-  if (buzz) {
-    digitalWrite(buzz_out,HIGH);
-    digitalWrite(LED_pin, HIGH);
-    }
-  else {
-    digitalWrite(buzz_out,LOW);
-    digitalWrite(LED_pin, LOW);
-    }
+    if (buzz){
+    tone(buzz_out,5000,2000);
+    digitalWrite(LED_pin, HIGH);}
+    else{
+    digitalWrite(buzz_out,0);
+    digitalWrite(LED_pin, LOW);}
 }
 void openCloseGarage(boolean open){
     if (open) {
