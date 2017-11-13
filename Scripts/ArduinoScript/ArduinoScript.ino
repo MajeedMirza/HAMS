@@ -92,7 +92,7 @@ void getFlame(){
 
 void getSmoke(){
   smoke = analogRead(smokeIn);
-  if (smoke > 300){
+  if (smoke > 350){
     alarm = "SMOKE";
     }
 }
@@ -152,6 +152,7 @@ void openCloseGarage(boolean open){
         digitalWrite(LED_pin, LOW);
         digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, HIGH);
         delay(2.5);
+
     }
    }
    else{
@@ -170,6 +171,8 @@ void openCloseGarage(boolean open){
         delay(2.5);
    }
   }
+  //Turn off all pins when done
+  digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, LOW);
 }
 int readUltraSonic(){
   digitalWrite(TrigPin, LOW); //request data go low then high then low
