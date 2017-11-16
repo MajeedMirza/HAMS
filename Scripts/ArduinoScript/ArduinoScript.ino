@@ -51,7 +51,6 @@ void setup()
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(smokeIn, INPUT);
   READSENSORS= true;
-  alarm = "";
   loopCount=0;
   dht.begin();
 }
@@ -66,6 +65,7 @@ void loop()
     getSmoke();
     getWater();
     getTempAndHum();
+    alarm  = checkDataThresholds();
     createAndFormatData();
     if (alarm != ""){
       sendAlarm();
@@ -83,37 +83,40 @@ void loop()
   }
   else {READSENSORS=false;}
 }
-
+String checkDataThresholds(){
+  String alarm = "";
+  if (smoke > 350){
+    alarm = alarm +  "SMOKE";}
+  if (flameValue > 100){
+    alarm = alarm + " " + "FLAME";}  
+  if (waterPresent > 0){
+    alarm = alarm + " " + "WATER";
+    }
+  if (temp > 42){
+    alarm = alarm + " " + "HIGH TEMP";
+    }
+  if (temp < 0) {
+    alarm = alarm + " " + "LOW TEMP";
+    }
+  if (hum > 80){
+    alarm = alarm + " " + "HUMIDITY";
+    }
+  return alarm;
+  }
 void getFlame(){
   flameValue = analogRead(flame_in);
-  if (flameValue > 100){
-    alarm = "FLAME";}
+
 }
 
 void getSmoke(){
   smoke = analogRead(smokeIn);
-  if (smoke > 350){
-    alarm = "SMOKE";
-    }
 }
 void getWater(){
   waterPresent = digitalRead(WaterInPin);
-  if (waterPresent > 0){
-    alarm = "WATER";
-    }
 }
 void getTempAndHum(){ // need a dealy of 2 seconds between calls
     hum = dht.readHumidity();
     temp= dht.readTemperature();
-    if (temp > 42){
-      alarm = "HIGH TEMP";
-      }
-    if (temp < 0) {
-      alarm = "LOW TEMP";
-      }
-    if (hum > 80){
-      alarm = "HUMIDITY";
-      }
 }
 void sendData(){
   Serial.println(DATA);

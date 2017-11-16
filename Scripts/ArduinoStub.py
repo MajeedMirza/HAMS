@@ -1,3 +1,4 @@
+import string
 class ArduinoStub:
     def __init__(self, temp, humid, smoke, water, flame, ultrasonic, garage):
       self.temp = temp
@@ -9,13 +10,14 @@ class ArduinoStub:
       self.ultrasonic = ultrasonic
 
     ## meant to replace get sensorValues in main script
-    def getTestSensorValues(self, goodFormat):
+    def getTestSensorValues(self,goodFormat):
         if not goodFormat:
-            return '{"temp":"int" , "humid":"int", "flame": "int" , "water" : int , "smoke" : int, "garage" :" + ", "ultrasonic": "int" }'
+            return '"temp":'+ str(self.temp)+' , "humid"'+ str(self.humid) +', "flame"'+str(self.flame)+' , "water" ' + str(self.water) +' , "smoke" :'+ str(self.smoke)+', "garage" :' + str(self.garage)+', "ultrasonic": '+str(self.ultrasonic)+' }'
         else:
-            return "{‘temp’:25, ‘hjmid’:50, ‘flame’: 0, ‘water’: 0, ‘smoke’: 0, ‘garage’: TRUE, ‘ultrasonic’: 15}"
+            return '{"temp":'+ str(self.temp)+' , "humid":'+ str(self.humid) +', "flame":'+str(self.flame)+' , "water" :' + str(self.water) +' , "smoke" :'+ str(self.smoke)+', "garage" :' + '"' + str(self.garage) + '"'+', "ultrasonic": '+str(self.ultrasonic)+' }'
+
     def getTestAlarm(self, goodFormat, alarmString):
         if not goodFormat:
-            return "{‘adlaarm’: "+ alarmString + "}"
+            return '"ADlarm"' + alarmString + "}"
         else:
-            return "{‘alarm’: "+ alarmString + "}"
+            return '{"alarm": "'+ alarmString + '"}'
