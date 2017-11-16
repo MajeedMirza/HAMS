@@ -10,9 +10,9 @@ class RPI_Handler:
     def __init__(self):
        # self.ser=serial.Serial("COM3",9600)
         self.nodeAddrList=[] ## input node ips in here
-       # self.SERVERAPI = "http://172.17.79.27:3001/api"
+        self.SERVERAPI = "http://172.17.79.27:3001/api"
         self.NODE_ID = '1'
-       # self.socketIO = SocketIO('172.17.79.27', 3001, LoggingNamespace)
+        #self.socketIO = SocketIO('172.17.79.27', 3001, LoggingNamespace)
         #self.socketIO.on('garage', self.GarageHandler)
 
 
