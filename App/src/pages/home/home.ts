@@ -29,7 +29,7 @@ export class HomePage {
   }
 
   getNodes() {
-    console.log('getting nodes');
+    //console.log('getting nodes');
     this.nodeServiceProvider.getNodes().then(data => {
       //console.log('got data');
       this.nodes = data;
