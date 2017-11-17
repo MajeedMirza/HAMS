@@ -4,15 +4,59 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="createNode()"><ion-icon name="add"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingText="Pull to refresh"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+  <ion-card>
+    <ion-card-header>
+      Node 1
+    </ion-card-header>
+    <ion-card-content>
+        <ion-list>
+            <ion-item>
+                <ion-icon name="sunny" item-start></ion-icon>Temperature: 12
+            </ion-item>
+            <ion-item>
+                <ion-icon name="cloud" item-start></ion-icon>Humidity: 50
+            </ion-item>
+            <ion-item>
+                <ion-icon name="nuclear" item-start></ion-icon>Smoke: 12
+            </ion-item>
+            <ion-item>
+                <ion-icon name="flame" item-start></ion-icon>Flame: 0
+            </ion-item>
+          </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+      <ion-card-header>
+        Node 2
+      </ion-card-header>
+      <ion-card-content>
+          <ion-list>
+              <ion-item>
+                  <ion-icon name="sunny" item-start></ion-icon>Temperature: 14
+              </ion-item>
+              <ion-item>
+                  <ion-icon name="cloud" item-start></ion-icon>Humidity: 53
+              </ion-item>
+              <ion-item>
+                  <ion-icon name="nuclear" item-start></ion-icon>Smoke: 24
+              </ion-item>
+              <ion-item>
+                  <ion-icon name="flame" item-start></ion-icon>Flame: 0
+              </ion-item>
+            </ion-list>
+      </ion-card-content>
+    </ion-card>
 </ion-content>
