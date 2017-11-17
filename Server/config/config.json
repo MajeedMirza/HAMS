@@ -1,9 +1,7 @@
 ﻿{
     "connectionString": "mongodb://test:test@ds113835.mlab.com:13835/hams",
-    "port":"",
-    "Ip": "",
-    "portUrl": "",
-    "apiUrl": "",
+    "connectionStringTEST":"mongodb://test:test@ds111336.mlab.com:11336/hamstest",
+    "TEST": false,
     "secret": "This is a secret"
 }
  

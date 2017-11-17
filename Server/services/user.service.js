@@ -1,13 +1,13 @@
 var config = require('config/config.json');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
-const db = require('monk')(config.connectionString);
+var db = require('config/db.js');
 var encryptor = require('simple-encryptor')(config.secret);
 var shortid = require('shortid');
 const email = require('services/email');
 
-const users = db.get('users')
-const logs = db.get('logs')
+const users = db.monk().get('users')
+const logs = db.monk().get('logs')
  
 var service = {};
 service.writeDB = writeDB;
