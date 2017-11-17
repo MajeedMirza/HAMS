@@ -12,31 +12,10 @@ and Angular DI.
 export class NodeServiceProvider {
 
     constructor(public http: Http) {
-        console.log('Hello NodeServiceProvider Provider');
+
     }
     // TODO: replace it once the server is ready
-    server = 'http://172.17.81.144:3001';
-
-    createAccount(name: string, email: string, phone: string, address: string, password: string) {
-        var user = {
-            name: name,
-            email: email,
-            phone: phone,
-            address: address,
-            hash: password,
-        }
-        console.log(user);
-        return new Promise((resolve, reject) => {
-            this.http.post(this.server + '/api/users/register/', user).subscribe(
-                res => {
-                    resolve(user);
-                },
-                err => {
-                    reject(err);
-                }
-            );
-        })
-    }
+    server = 'http://localhost:3001';
 
     createNode(name: string, id: string, type: string, location: string) {
         var node = {
@@ -44,6 +23,9 @@ export class NodeServiceProvider {
             id: id,
             type: type,
             location: location
+        }
+        if (!name || !id || !type || !location) {
+            throw  'Invalid Input';
         }
         //TODO: Add if function to prevent corrupt data
         return new Promise((resolve, reject) => {
@@ -62,11 +44,11 @@ export class NodeServiceProvider {
         return new Promise((resolve, reject) => {
             this.http.get(this.server + '/api/nodes/getAll/').map(res => res.json()).subscribe(
                 data => {
-                    console.log('Got nodes successfully');
+                   // console.log('Got nodes successfully');
                     resolve({data}.data);
                 },
                 err => {
-                    console.log("Failed to get nodes.");
+                    //console.log("Failed to get nodes.");
                     reject(err);
                 }
             )
@@ -87,14 +69,17 @@ export class NodeServiceProvider {
     }
 
     getNodeValues(nodeID) {
+        if (!nodeID) {
+            throw 'Invalid ID';
+        }
         return new Promise((resolve, reject) => {
             this.http.get(this.server + '/api/logs/getlatest/' + nodeID).map(res => res.json()).subscribe(
                 data => {
-                    console.log('Got nodes successfully');
+                    //console.log('Got nodes successfully');
                     resolve(data);
                 },
                 err => {
-                    console.log("Failed to get nodes.");
+                    //console.log("Failed to get nodes.");
                     reject(err);
                 }
             )
