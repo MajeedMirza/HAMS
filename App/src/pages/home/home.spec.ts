@@ -22,6 +22,7 @@ describe('Testing home', () => {
     let mockBackend: MockBackend;
     let navCtrl: NavController;
 
+    // Set up Mock Http for NodeServiceProvider
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             providers: [
@@ -44,7 +45,8 @@ describe('Testing home', () => {
         mockBackend = getTestBed().get(MockBackend);
     }));
 
-    it('Good values case', async(inject([NodeServiceProvider], (service) => {
+    // Test #1: Good Server Request
+    it('Good Server Request', async(inject([NodeServiceProvider], (service) => {
         mockBackend.connections.subscribe(
             (connection: MockConnection) => {
                 connection.mockRespond(new Response(
@@ -76,6 +78,7 @@ describe('Testing home', () => {
     
     );
 
+    // Test #2: Bad Server Request
     it ('Bad Server Request', () => {
         let http: Http;
         let service: NodeServiceProvider;
@@ -86,23 +89,28 @@ describe('Testing home', () => {
             home.getNodes()
         ).toBeFalsy();
     });
-
+    
+    // Test #3: Node Creation with valid inputs
     it('Create Node with valid values', async(inject([NodeServiceProvider], (service) => {
         expect(function() {service.createNode('name', 'id', 'type', 'location')}).not.toThrow();
     })))
 
+    // Test #4: Node Creation with empty inputs
     it('Create Node with empty value', async(inject([NodeServiceProvider], (service) => {
         expect(function() {service.createNode()}).toThrow();
     })))
 
+    // Test #5: Get Node with Valid Node ID
     it('Get Node Values with Valid ID', async(inject([NodeServiceProvider], (service) => {
         expect(function() {service.getNodeValues('ID')}).not.toThrow();
     })))
     
+    // Test #6: Get Node with Empty Node ID
     it('Get Node Values with Empty ID', async(inject([NodeServiceProvider], (service) => {
         expect(function() {service.getNodeValues()}).toThrow();
     })))
 
+    // Test #7: Set Node with Valid Inputs
     it ('Set Valid Node Values', () => {
         let http: Http;
         let service: NodeServiceProvider;
@@ -123,6 +131,7 @@ describe('Testing home', () => {
         ).toBeTruthy();
     });
 
+    // Test #8: Set Node with Invalid Inputs
     it ('Set Invalid Node Values', () => {
         let http: Http;
         let service: NodeServiceProvider;
