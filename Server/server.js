@@ -14,7 +14,8 @@ var cors = require('cors');
 var io = require('config/socket')
 
 config.port = "3001";
-config.Ip = "172.17.79.27";
+//config.Ip = "172.17.81.144";
+config.Ip = "localhost"
 config.portUrl = "http://" + config.Ip + ":" + config.port;
 config.apiUrl = config.portUrl + "/api"
 
@@ -49,6 +50,7 @@ var server = app.listen(config.port, config.Ip, function () {
         });
     });
     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
+    var tests = require('tests/runTests.js')
 });
 
 

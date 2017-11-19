@@ -8,6 +8,8 @@ router.post('/register', registerNode);
 router.post('/values', insertValues);
 router.get('/getAll', getAll);
 router.get('/garage/:open', garage)
+router.get('/getlogs', getLogs)
+router.post('/emergency', emergency);
 
 
 module.exports = router;
@@ -44,10 +46,30 @@ function getAll(req, res) {
         });
 }
 
+function getLogs(req, res) {
+    nodeService.getLogs()
+        .then(function (nodes) {
+            res.send(nodes);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
 function garage(req, res) {
     nodeService.garage(req.params.open)
         .then(function (nodes) {
             res.send(nodes);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function emergency(req, res) {
+    nodeService.emergency(req.body)
+        .then(function () {
+            res.sendStatus(200);
         })
         .catch(function (err) {
             res.status(400).send(err);

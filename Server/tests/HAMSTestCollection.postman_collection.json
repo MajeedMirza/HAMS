@@ -1,0 +1,470 @@
+{
+	"info": {
+		"name": "HAMS Test Collection",
+		"_postman_id": "1714eaf7-3350-44c6-228b-768aab006c50",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. testGetAllNodesEmptyDB",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"1. testGetAllNodesEmptyDB\"] = (jsonData!==null && jsonData.length===0 && responseCode.code === 200);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "VouchrTest1",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "poisayu@hotmail.com",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "3092nxybyb0otqw18e8nh5nty",
+							"type": "text"
+						},
+						{
+							"key": "locale",
+							"value": "en-US",
+							"type": "text"
+						},
+						{
+							"key": "currency",
+							"value": "USD",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/getAll",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"getAll"
+					]
+				},
+				"description": "Generated from a curl request: \ncurl -X POST -d \\\"client_id=3092nxybyb0otqw18e8nh5nty\\\" -d \\\"locale=en-US\\\" -d \\\"currency=USD\\\" -F grant_type=password -F password=asdf1234 -F username=airbnbdev@gmail.com https://api.airbnb.com/v1/authorize"
+			},
+			"response": []
+		},
+		{
+			"name": "2. testCreateNode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"2. testCreateNode\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test\",\n  \"id\": \"Test1\",\n  \"type\": \"Test2\",\n  \"location\": \"Test3\"\n}\n"
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/register",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"register"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "3. testCreateNodeWrongSpelling",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"3. testCreateNodeWrongSpelling\"] = responseCode.code === 500",
+							"&& responseBody.includes(\"Missing information\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test\",\n  \"id\": \"Test1\",\n  \"type\": \"Test2\",\n  \"LOC\": \"Test3\"\n}\n"
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/register",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"register"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "4. testCreateNodeMissingValue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"4. testCreateNodeMissingValue\"] = responseCode.code === 500 ",
+							"&& responseBody.includes(\"Missing information\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test\",\n  \"type\": \"Test2\",\n  \"location\": \"Test3\"\n}\n"
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/register",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"register"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "5. testGetAllNodes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"5. testGetAllNodes\"] = (jsonData!==null && jsonData.length === 1 && responseCode.code === 200);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "VouchrTest1",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "poisayu@hotmail.com",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "3092nxybyb0otqw18e8nh5nty",
+							"type": "text"
+						},
+						{
+							"key": "locale",
+							"value": "en-US",
+							"type": "text"
+						},
+						{
+							"key": "currency",
+							"value": "USD",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/getAll",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"getAll"
+					]
+				},
+				"description": "Generated from a curl request: \ncurl -X POST -d \\\"client_id=3092nxybyb0otqw18e8nh5nty\\\" -d \\\"locale=en-US\\\" -d \\\"currency=USD\\\" -F grant_type=password -F password=asdf1234 -F username=airbnbdev@gmail.com https://api.airbnb.com/v1/authorize"
+			},
+			"response": []
+		},
+		{
+			"name": "6. testAddValues",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"6. testAddValues\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\": \"Test1\",\n\"values\": {\n\"temperature\": 22.6,\n\"humidity\": 25,\n\"smoke\": 0,\n\"flame\": 0,\n\"garage\": \"OPEN\"}\n}\n\n\n"
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/values",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"values"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "7. testAddValuesMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"7. testAddValuesMissing\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\": \"Test1\",\n\"values\": {\n\"temperature\": 22.6,\n\"garage\": \"OPEN\"}\n}\n\n\n"
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/values",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"values"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "8. testAddValuesExtra",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"8. testAddValuesExtra\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\": \"Test1\",\n\"values\": {\n\"temperature\": 22.6,\n\"humidity\": 25,\n\"smoke\": 0,\n\"flame\": 0,\n\"garage\": \"OPEN\",\n\"water\": 0\n}\n}\n\n\n"
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/values",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"values"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "9. testAddValuesNoId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"9. testAddValuesNoId\"] = responseCode.code === 500 ",
+							"&& responseBody.includes(\"No id received\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"values\": {\n\"temperature\": 22.6,\n\"humidity\": 25,\n\"smoke\": 0,\n\"flame\": 0,\n\"garage\": \"OPEN\"}\n}\n\n\n"
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/values",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"values"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "10. testAddValuesNoValues",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"10. testAddValuesNoValues\"] = responseCode.code === 500 ",
+							"&& responseBody.includes(\"No values received\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\": \"Test1\"\n}\n\n\n"
+				},
+				"url": {
+					"raw": "{{server}}/api/nodes/values",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"nodes",
+						"values"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
