@@ -17,6 +17,7 @@ void loop() {
     if (temp < 30 && temp > 15){
       Serial.println(temp);
       Serial.println("PASS: temp reading valid");
+      Serial.println("Test Done");
       test =false;
       }
     else {Serial.println("FAIL: temp not in valid range trying again in 2s");}
