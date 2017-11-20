@@ -8,6 +8,7 @@ if(config.TEST === true){
 }
 
 function test() {
+    console.log("Clearing database")
     nodeService.clearAll().then(function(){
         // call newman.run to pass `options` object and wait for callback
         newman.run({
