@@ -101,6 +101,14 @@ export class NodeServiceProvider {
         });
     }
 
+    openGarage() {
+        this.http.post(this.server + '/api/nodes/garage/', "true").subscribe(res => {
+
+        }, err => {
+            
+        })
+    }
+
     setServer(ip) {
         this.server = "http://" + ip + ":3001";
     }
