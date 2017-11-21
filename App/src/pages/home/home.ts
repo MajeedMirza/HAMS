@@ -16,21 +16,8 @@ export class HomePage {
   smoke: any;
   flame: any;
 
-  nodeList: Array<{
-    name: any;
-    temperature: any;
-    humidity: any;
-    smoke: any;
-    flame: any;
-  }> = [];
-
   constructor(public navCtrl: NavController, public nodeServiceProvider: NodeServiceProvider) {
-    nodeServiceProvider.getNodes().then(data => {
-      this.nodes = data;
-      console.log(data);
-    }, err => {
-      console.log(err);
-    });
+    this.getNodes();
   }
 
   createNode() {
@@ -38,13 +25,21 @@ export class HomePage {
     console.log("hi");
   }
 
+  getNodes() {
+    this.nodeServiceProvider.getNodes().then(data => {
+      this.nodes = data;
+      console.log(data);
+    }, err => {
+      console.log(err);
+    });
+  }
+
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
+    this.getNodes();
     setTimeout(() => {
         console.log('Async operation has ended');
         refresher.complete();
     }, 1500);
   }
-
-
 }

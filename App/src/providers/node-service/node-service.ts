@@ -15,7 +15,7 @@ export class NodeServiceProvider {
         console.log('Hello NodeServiceProvider Provider');
     }
     // TODO: replace it once the server is ready
-    server = 'http://172.17.81.144:3001';
+    server = 'http://172.17.82.126:3001';
 
     createAccount(name: string, email: string, phone: string, address: string, password: string) {
         var user = {
@@ -102,10 +102,18 @@ export class NodeServiceProvider {
     }
 
     openGarage() {
-        this.http.post(this.server + '/api/nodes/garage/', "true").subscribe(res => {
-
+        this.http.get(this.server + '/api/nodes/garage/true').subscribe(res => {
+            console.log("Garage Opened");
         }, err => {
-            
+            console.log("Cannot open garage");
+        })
+    }
+
+    closeGarage() {
+        this.http.get(this.server + '/api/nodes/garage/false').subscribe(res => {
+            console.log("Garage Closed");
+        }, err => {
+            console.log("Cannot close garage");
         })
     }
 

@@ -17,46 +17,25 @@
             refreshingText="Refreshing...">
         </ion-refresher-content>
     </ion-refresher>
-  <ion-card>
+  <ion-card *ngFor="let node of nodes">
     <ion-card-header>
-      Node 1
+      {{node.name}}
     </ion-card-header>
     <ion-card-content>
         <ion-list>
             <ion-item>
-                <ion-icon name="sunny" item-start></ion-icon>Temperature: 12
+                <ion-icon name="sunny" item-start></ion-icon>Temperature: {{node.values.temp}}
             </ion-item>
             <ion-item>
-                <ion-icon name="cloud" item-start></ion-icon>Humidity: 50
+                <ion-icon name="cloud" item-start></ion-icon>Humidity: {{node.values.humid}}
             </ion-item>
             <ion-item>
-                <ion-icon name="nuclear" item-start></ion-icon>Smoke: 12
+                <ion-icon name="nuclear" item-start></ion-icon>Smoke: {{node.values.smoke}}
             </ion-item>
             <ion-item>
-                <ion-icon name="flame" item-start></ion-icon>Flame: 0
+                <ion-icon name="flame" item-start></ion-icon>Flame: {{node.values.flame}}
             </ion-item>
           </ion-list>
     </ion-card-content>
   </ion-card>
-  <ion-card>
-      <ion-card-header>
-        Node 2
-      </ion-card-header>
-      <ion-card-content>
-          <ion-list>
-              <ion-item>
-                  <ion-icon name="sunny" item-start></ion-icon>Temperature: 14
-              </ion-item>
-              <ion-item>
-                  <ion-icon name="cloud" item-start></ion-icon>Humidity: 53
-              </ion-item>
-              <ion-item>
-                  <ion-icon name="nuclear" item-start></ion-icon>Smoke: 24
-              </ion-item>
-              <ion-item>
-                  <ion-icon name="flame" item-start></ion-icon>Flame: 0
-              </ion-item>
-            </ion-list>
-      </ion-card-content>
-    </ion-card>
 </ion-content>

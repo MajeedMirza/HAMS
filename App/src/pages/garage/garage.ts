@@ -8,11 +8,21 @@ import { NodeServiceProvider } from '../../providers/node-service/node-service';
 })
 export class GaragePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public nodeServiceProvider: NodeServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GaragePage');
+  }
+
+  open() {
+    this.nodeServiceProvider.openGarage();
+  }
+
+  close() {
+    this.nodeServiceProvider.closeGarage();
   }
 
 }
