@@ -9,7 +9,7 @@ from time import sleep
 class RPI_Handler:
     def __init__(self):
         self.ser=serial.Serial("COM4",9600)
-        self.nodeAddrList=["127.0.0.1"] ## input node ips in here
+        self.nodeAddrList=["192.168.2.83"] ## input node ips in here
         ##self.SERVERAPI = "http://172.17.82.126:3001/api"
         self.NODE_ID = 'Test1'
         self.garageStatus=""
@@ -109,6 +109,7 @@ class RPI_Handler:
               if "ACK" in message:
                   break
               if i >= 2: ## try three times before giving up on node
+                  print "giving up no reply"
                   break
               i = i+1
 
@@ -124,6 +125,7 @@ class RPI_Handler:
               if "ACK" in message:
                   break
               if i >= 2: ## try three times before giving up on node
+                  print "giving up no reply"
                   break
               i = i+1
 
