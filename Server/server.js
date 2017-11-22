@@ -14,7 +14,7 @@ var cors = require('cors');
 var io = require('config/socket')
 
 config.port = "3001";
-//config.Ip = "172.17.81.144";
+//config.Ip = "172.17.82.126";
 config.Ip = "localhost"
 config.portUrl = "http://" + config.Ip + ":" + config.port;
 config.apiUrl = config.portUrl + "/api"

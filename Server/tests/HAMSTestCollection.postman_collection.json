@@ -22,42 +22,13 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "grant_type",
-							"value": "password",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "VouchrTest1",
-							"type": "text"
-						},
-						{
-							"key": "username",
-							"value": "poisayu@hotmail.com",
-							"type": "text"
-						},
-						{
-							"key": "client_id",
-							"value": "3092nxybyb0otqw18e8nh5nty",
-							"type": "text"
-						},
-						{
-							"key": "locale",
-							"value": "en-US",
-							"type": "text"
-						},
-						{
-							"key": "currency",
-							"value": "USD",
-							"type": "text"
-						}
-					]
-				},
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {},
 				"url": {
 					"raw": "{{server}}/api/nodes/getAll",
 					"host": [
@@ -137,7 +108,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"Test\",\n  \"id\": \"Test1\",\n  \"type\": \"Test2\",\n  \"LOC\": \"Test3\"\n}\n"
+					"raw": "{\n  \"name\": \"Test\",\n  \"id\": \"Test2\",\n  \"type\": \"Test2\",\n  \"LOC\": \"Test3\"\n}\n"
 				},
 				"url": {
 					"raw": "{{server}}/api/nodes/register",
@@ -214,41 +185,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "grant_type",
-							"value": "password",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "VouchrTest1",
-							"type": "text"
-						},
-						{
-							"key": "username",
-							"value": "poisayu@hotmail.com",
-							"type": "text"
-						},
-						{
-							"key": "client_id",
-							"value": "3092nxybyb0otqw18e8nh5nty",
-							"type": "text"
-						},
-						{
-							"key": "locale",
-							"value": "en-US",
-							"type": "text"
-						},
-						{
-							"key": "currency",
-							"value": "USD",
-							"type": "text"
-						}
-					]
-				},
+				"body": {},
 				"url": {
 					"raw": "{{server}}/api/nodes/getAll",
 					"host": [

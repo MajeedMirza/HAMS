@@ -15,13 +15,13 @@ router.post('/emergency', emergency);
 module.exports = router;
 
 function registerNode(req, res) {
-    console.log("Registering node with nodeId: " + req.body.id);
     nodeService.create(req.body)
         .then(function () {
+            console.log("Registering node with nodeId: " + req.body.id);
             res.sendStatus(200);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.status(500).send(err.message);
         });
 }
 
@@ -57,6 +57,7 @@ function getLogs(req, res) {
 }
 
 function garage(req, res) {
+    console.log("Garage open: " + req.params.open)
     nodeService.garage(req.params.open)
         .then(function (nodes) {
             res.send(nodes);
