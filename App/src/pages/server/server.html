@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Server</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content padding>
+  <ion-item>Server: {{server}}</ion-item>
+  
+  <ion-item>
+    <ion-label fixed>Server</ion-label>
+    <ion-input type="text" value=""></ion-input>
+  </ion-item>
+  <button ion-button block (click)="setServer()">Set Server</button>
+</ion-content>
