@@ -43,15 +43,25 @@ function create(newNode){
 }
 
 function insertValues(payload){
-   if(!payload.id){
-       throw new Error('No id received');
-   }
-   if(!payload.values){
-       throw new Error('No values received');
-   }
+    if(!payload.id){
+        throw new Error('No id received');
+    }
+    if(!payload.values){
+        throw new Error('No values received');
+    }
+    checkValues(payload);
     return logs.insert(payload).then(function(){
-        return nodes.update({id: payload.id}, {$set: { values: payload.values }});
+        return nodes.update({id: payload.id}, {$set: { values: payload.values }}).then(function(v){
+            //console.log(v)
+            return socket.emit('values', payload);
+        })
     });
+}
+
+function checkValues(payload){
+    if(payload.values.ultrasonic < -1){
+        return emergency({id: payload.id, alarm: "Movement", time:payload.values.time});
+    }
 }
 
 function getAll(){
@@ -95,7 +105,7 @@ function emergency(message){
         var lastEmergency = nodeinfo.lastEmergency;
         var newEmergency = moment(message.time);
         var minutesDiff = newEmergency.diff(lastEmergency, 'minutes');
-        if (minutesDiff >= 2 || (!minutesDiff && minutesDiff != 0)){
+        if (minutesDiff >= config.alarmWait || (!minutesDiff && minutesDiff != 0)){
             return updateEmergencyTime(message.id, message.time).then(function(){
                 return notifications.firebase.messaging().sendToTopic("emergency",payload).then(function(response){
                     console.log(response);
@@ -103,7 +113,7 @@ function emergency(message){
                 })
             });
         } else {
-            minutesDiff = 2 - minutesDiff
+            minutesDiff = config.alarmWait - minutesDiff
             var emergStr2 = "Ignored for " + minutesDiff + " more minutes - " + message.alarm + " on " + message.id + " at " + message.time 
             console.log(emergStr2);
             return emergStr2;
