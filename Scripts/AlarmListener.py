@@ -1,12 +1,13 @@
 from socket import *
-import RPi.GPIO as GPIO
+##import RPi.GPIO as GPIO
 ## this script keeps listening for UDP DATA indicating an alarm and triggers the alarm
 socket = socket(AF_INET, SOCK_DGRAM)
 socket.bind(('', 2000))
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(2, GPIO.OUT)
+##GPIO.setmode(GPIO.BCM)
+##GPIO.setup(3, GPIO.OUT)
 
 while True:
+    print "waiting for alarm message"
     message, address = socket.recvfrom(1024)
     print ("recieved message: ")
     print (message)
@@ -16,7 +17,11 @@ while True:
     socket.sendto("ACK", address)
     ## if alarm recieved set alarm pin 2  to high
     if "TriggerAlarm" in message:
-        GPIO.output(2, 1)
+        print "setting gpio high"
+        ##GPIO.output(3, 1)
+        print "gpio 3 high"
     ## IF Alarm reset recieved set pin to low
     elif "ResetAlarm" in message:
-         GPIO.output(2, 0)
+         print "reset alarm message recieved"
+         ##GPIO.output(3, 0)
+         print "gpio 3 low"

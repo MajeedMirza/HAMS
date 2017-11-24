@@ -22,6 +22,9 @@ int EchoPin = 7;
 int WaterInPin = 4;
 // input pin for the flame sensor
 int flame_in=A1;
+// Alarm and garage pins 
+int AlarmPin = 2; 
+int GaragePin = 12;
 // global variables to store the sensor readings
 int waterPresent = 0;
 int flameValue=0;
@@ -29,16 +32,21 @@ float hum;
 float temp;
 float cm;
 int smoke;
+int previousGaragePinState = LOW;
+float SmokeRo;
 String DATA;
 boolean READSENSORS;
 String alarm;
 int loopCount;
+boolean GlobalAlarm = false;
 //global variable to monitor garage status
-boolean open;
+boolean Garageopen = true;
 
 void setup()
 {
   Serial.begin(9600);
+  pinMode(GaragePin,INPUT);
+  pinMode(AlarmPin,INPUT);
   pinMode(TrigPin, OUTPUT);
   pinMode(EchoPin, INPUT);
   pinMode(step_pin_1, OUTPUT);
@@ -48,17 +56,17 @@ void setup()
   pinMode(buzz_out,OUTPUT);//Define Beep as output interface
   pinMode(flame_in,INPUT);//Define flame as input interface
   pinMode(WaterInPin, INPUT);
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED_pin, OUTPUT);
   pinMode(smokeIn, INPUT);
   READSENSORS= true;
   loopCount=0;
   dht.begin();
+  //callibrateSmokeSensor();
 }
 void loop()
 {
   // reached every 30 seconds
   // TODO check if recieved alarm from pi
-  // TODO check if recieved open close garage
   // TODO alarm HANDLING Sending AND recieving + BUZZ + LED
   if (READSENSORS){
     getFlame();
@@ -71,25 +79,69 @@ void loop()
       sendAlarm();
       Buzz(true);
       }
-    else {Buzz(false);}
+    else {
+      if (!GlobalAlarm){
+        Buzz(false);}
+      }
     sendData();
   }
-  delay(500); //Sleep for 30 SECONDS
+  delay(1000); //Sleep for 30 SECONDS
   loopCount++;
-  if (loopCount>=6){ // CHECK SENSORS EVERY 3 MINS
+  if (digitalRead(AlarmPin) == HIGH){
+   // Serial.println("alarm from pin");
+    Buzz(true);
+    GlobalAlarm=true;
+    }
+  else if (digitalRead(AlarmPin) == LOW){
+    //Serial.println("alarm gone");
+    GlobalAlarm=false;
+    }
+ // Serial.println("checking garage, prevous signal");
+ // Serial.println(previousGaragePinState);
+  if (digitalRead(GaragePin) == HIGH && previousGaragePinState != HIGH){
+    openCloseGarage(Garageopen);
+    Garageopen = !Garageopen;
+    previousGaragePinState = HIGH;
+    }
+  else if (digitalRead(GaragePin) == LOW){
+      previousGaragePinState = LOW;
+    }
+
+  if (loopCount>=10){ // CHECK SENSORS EVERY  10 sec
     loopCount=0;
     READSENSORS= true;
     alarm = "";
   }
   else {READSENSORS=false;}
 }
+void callibrateSmokeSensor(){
+  float rs = 0;
+  // get average data by testing 100 times  
+ // Serial.println("CALLIBRATING");
+  for(int x = 0 ; x < 100 ; x++)
+  { digitalWrite(LED_pin, HIGH);
+    rs = rs+getSmokeRs();
+    delay(500);
+    digitalWrite(LED_pin, LOW);
+    delay(500);
+  }
+  rs = rs/100.0;
+  SmokeRo = rs/9.80;
+  
+}
+float getSmokeRs(){
+  int sensorValue;
+  sensorValue = analogRead(smokeIn);
+  float sensor_volt=(float)sensorValue/1024*5.0; // 1024 is the max value that can be read from the smoke sensor due to adc
+  return  (5.0-sensor_volt)/sensor_volt; //voltage devider formula allows us to omit rl values // this value is our rs
+}
 String checkDataThresholds(){
   String alarm = "";
-  if (smoke > 350){
-    alarm = alarm +  "SMOKE";}
+  if (smoke > 200){
+    alarm = alarm +  "SMOKE/GAS";}
   if (flameValue > 100){
     alarm = alarm + " " + "FLAME";}  
-  if (waterPresent > 0){
+  if (waterPresent == HIGH){
     alarm = alarm + " " + "WATER";
     }
   if (temp > 42){
@@ -98,18 +150,20 @@ String checkDataThresholds(){
   if (temp < 0) {
     alarm = alarm + " " + "LOW TEMP";
     }
-  if (hum > 80){
+  if (hum > 70){
     alarm = alarm + " " + "HUMIDITY";
     }
   return alarm;
   }
 void getFlame(){
   flameValue = analogRead(flame_in);
-
 }
 
 void getSmoke(){
-  smoke = analogRead(smokeIn);
+  float RS = getSmokeRs(); // get resistance from reading value of smoke sensor
+  long ppm = pow(10,((log10(RS/SmokeRo)-1.55)/-0.43));
+  long rppm= (ppm + 50) / 100 * 100; // round to the nearest 100
+  smoke = rppm;
 }
 void getWater(){
   waterPresent = digitalRead(WaterInPin);
@@ -122,44 +176,45 @@ void sendData(){
   Serial.println(DATA);
 }
 void sendAlarm(){
-  Serial.println(String("{'alarm':"+ alarm + "}"));
+  Serial.println(String("{\"alarm\": \""+ alarm + "\" }"));
 }
 void createAndFormatData(){
   String garageStr;
-  if (open){
+  if (Garageopen){
     garageStr="OPEN";
   }
   else{garageStr="CLOSED";}
-  DATA = String("{\"temp\":" + String(temp) + ", \"humid\":" + String(hum) +  ", \"flame\":"+ String(flameValue) +", \"water\":"+ String(waterPresent) +", \"smoke\" :" +String(smoke)+ ", \"garage\":"+ garageStr +", \"ultrasonic\":" +String(cm)+ "}");
+  DATA = String("{\"temp\":" + String(temp) + ", \"humid\":" + String(hum) +  ", \"flame\":"+ String(flameValue) +", \"water\":"+ String(waterPresent) +", \"smoke\" :" +String(smoke)+ ", \"garage\":"+ "\"" + garageStr + "\"" +", \"ultrasonic\":" +String(cm)+ "}");
 }
 void Buzz(boolean buzz){
     if (buzz){
-    tone(buzz_out,5000,2000);
+    //tone(buzz_out,5000,2000);
+    digitalWrite(buzz_out,HIGH);
     digitalWrite(LED_pin, HIGH);}
     else{
     digitalWrite(buzz_out,0);
     digitalWrite(LED_pin, LOW);}
 }
-void openCloseGarage(boolean open){
-    if (open) {
-      while(readUltraSonic() >= 2){ //TODO Change this value reading, NEED A WAY TO FIGURE OUT WHEN THE GARAGE IS FULLY OPEN
-        digitalWrite(LED_pin, HIGH);
-        digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, HIGH); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, LOW);
-        delay(2.5);
-        digitalWrite(LED_pin, LOW);
-        digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, HIGH); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, LOW);
-        delay(2.5);
-        digitalWrite(LED_pin, HIGH);
-        digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, HIGH);
-        delay(2.5);
-        digitalWrite(LED_pin, LOW);
-        digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, HIGH);
-        delay(2.5);
-
-    }
+void openCloseGarage(boolean GarageOpen){
+    unsigned long  startTime = millis();
+    if (GarageOpen) {
+      while (millis()-startTime < 30000){ // run for one minute 
+          digitalWrite(LED_pin, HIGH);
+          digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, HIGH); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, LOW);
+          delay(2.5);
+          digitalWrite(LED_pin, LOW);
+          digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, HIGH); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, LOW);
+          delay(2.5);
+          digitalWrite(LED_pin, HIGH);
+          digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, HIGH);
+          delay(2.5);
+          digitalWrite(LED_pin, LOW);
+          digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, HIGH);
+          delay(2.5);
+        }
    }
    else{
-     while(readUltraSonic() >= 2){ //TODO Change this value reading
+      while (millis()-startTime < 30000){ // run for one minute
         digitalWrite(LED_pin, HIGH);
         digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, HIGH);
         delay(2.5);
@@ -172,11 +227,12 @@ void openCloseGarage(boolean open){
         digitalWrite(LED_pin, LOW);
         digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, HIGH);
         delay(2.5);
-   }
+    }
   }
   //Turn off all pins when done
   digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, LOW);
 }
+
 int readUltraSonic(){
   digitalWrite(TrigPin, LOW); //request data go low then high then low
   delayMicroseconds(2);

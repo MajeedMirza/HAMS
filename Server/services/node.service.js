@@ -7,6 +7,7 @@ var shortid = require('shortid');
 const email = require('services/email');
 var socket = require('config/socket');
 var notifications = require("services/notification");
+var moment = require('moment')
 
 const nodes = db.monk().get('nodes')
 const logs = db.monk().get('logs')
@@ -23,16 +24,22 @@ service.clearAll = clearAll;
 module.exports = service;
 
 function create(newNode){
-    var node = {};
-    node.name = newNode.name;
-    node.id = newNode.id;
-    node.type = newNode.type;
-    node.location = newNode.location;
-    node.values = {};
-    if(!newNode.name || !newNode.id || !newNode.type || !newNode.location){
-        throw new Error('Missing information');
-    }
-    return nodes.insert(node);
+    return getNode(newNode.id).then(function(nodeinfo){
+        if (nodeinfo){
+            throw new Error('Already exists');
+        }
+        var node = {};
+        node.name = newNode.name;
+        node.id = newNode.id;
+        node.type = newNode.type;
+        node.location = newNode.location;
+        node.lastEmergency = null;
+        node.values = {};
+        if(!newNode.name || !newNode.id || !newNode.type || !newNode.location){
+            throw new Error('Missing information');
+        }
+        return nodes.insert(node);
+    });
 }
 
 function insertValues(payload){
@@ -51,6 +58,10 @@ function getAll(){
     return nodes.find({});
 }
 
+function getNode(id){
+    return nodes.findOne({id:id});
+}
+
 function getLogs(){
     return logs.find({});
 }
@@ -66,21 +77,36 @@ function clearAll(){
     })
 }
 
+function updateEmergencyTime(id, time){
+    return nodes.update({id: id}, {$set: { lastEmergency: time }});
+}
+
 
 function emergency(message){
-    var payload = {
-        notification: {
-            title: "EMERGENCY",
-            body: "This is a HAMS notification",
-            sound: "default"
-        },
-        data : message
-    }
-
-    return notifications.firebase.messaging().sendToTopic("emergency",payload).then(function(response){
-        console.log(response);
-        //return insert(message.node_id, message.time, message.status, message.water, 
-                    //message.gas, message.temperature, message.humidity)
-        return response
-    })
+    return getNode(message.id).then(function(nodeinfo){
+        var payload = {
+            notification: {
+                title: "EMERGENCY",
+                body: message.id + ": " + message.alarm + " at " + message.time,
+                sound: "default"
+            },
+            data : message
+        }
+        var lastEmergency = nodeinfo.lastEmergency;
+        var newEmergency = moment(message.time);
+        var minutesDiff = newEmergency.diff(lastEmergency, 'minutes');
+        if (minutesDiff >= 2 || (!minutesDiff && minutesDiff != 0)){
+            return updateEmergencyTime(message.id, message.time).then(function(){
+                return notifications.firebase.messaging().sendToTopic("emergency",payload).then(function(response){
+                    console.log(response);
+                    return response
+                })
+            });
+        } else {
+            minutesDiff = 2 - minutesDiff
+            var emergStr2 = "Ignored for " + minutesDiff + " more minutes - " + message.alarm + " on " + message.id + " at " + message.time 
+            console.log(emergStr2);
+            return emergStr2;
+        }
+    });
 }

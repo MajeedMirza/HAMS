@@ -108,7 +108,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"Test\",\n  \"id\": \"Test1\",\n  \"type\": \"Test2\",\n  \"LOC\": \"Test3\"\n}\n"
+					"raw": "{\n  \"name\": \"Test\",\n  \"id\": \"Test2\",\n  \"type\": \"Test2\",\n  \"LOC\": \"Test3\"\n}\n"
 				},
 				"url": {
 					"raw": "{{server}}/api/nodes/register",
