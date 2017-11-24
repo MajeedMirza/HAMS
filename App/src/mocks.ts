@@ -1,4 +1,4 @@
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 /**
  * @class NavParamsMock
