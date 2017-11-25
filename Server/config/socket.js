@@ -10,7 +10,7 @@ exports.io = function() {
 
 exports.emit = function(topic, message) {
      return new Promise( ( resolve, reject ) => {
-         if (io.emit(topic, msg)){
+         if (io.emit(topic, message)){
              resolve(true)
          }
          else{
