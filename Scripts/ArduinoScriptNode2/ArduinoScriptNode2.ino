@@ -67,6 +67,7 @@ void setup()
   pinMode(SmokeIn, INPUT);
   READSENSORS= true;
   LoopCount=0;
+  delay(60000);
 }
 void loop()
 {
@@ -99,7 +100,7 @@ void loop()
     //Serial.println("Alarm gone");
     GlobalAlarm=false;
     }
-  if (LoopCount>=10){ // CHECK SENSORS EVERY  10 sec
+  if (LoopCount>=12){ // CHECK SENSORS EVERY  10 sec
     LoopCount=0;
     READSENSORS= true;
     Alarm = "";
