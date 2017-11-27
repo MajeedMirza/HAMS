@@ -10,51 +10,42 @@ import * as io from 'socket.io-client';
 })
 export class HomePage {
 
-  nodes: any;
-
-  temperature: any;
-  humidity: any;
-  smoke: any;
-  flame: any;
-
-  socket:any;
+  nodes: any; // holds all nodes
+  socket:any; // socket for realtime update
 
   constructor(public navCtrl: NavController, public nodeServiceProvider: NodeServiceProvider) {
+    // Fetch node values on start
     this.getNodes();
+    // Socket setup for realtime value update
     this.socket = io(nodeServiceProvider.getServer());
-
     this.socket.on('values', (node) => {
-      console.log("message", node);
-      // TODO Live update values
       for (let i in this.nodes) {
         if (this.nodes[i].id == node.id) {
-          console.log("hi");
           this.nodes[i].values = node.values;
         }
       }
     });
-
   }
 
   createNode() {
+    // Open AddNodePage to create a node
     this.navCtrl.push(AddNodePage);
-    console.log("hi");
   }
 
   getNodes() {
+    // call nodeServiceProvider getNodes() function to get all nodes
     this.nodeServiceProvider.getNodes().then(data => {
       this.nodes = data;
-      console.log(data);
     }, err => {
-      console.log(err);
+      // warn user about the error
+      alert(err);
     });
   }
 
+  // Pull down to refresh the data
   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
     this.getNodes();
     setTimeout(() => {
-        console.log('Async operation has ended');
         refresher.complete();
     }, 1500);
   }
