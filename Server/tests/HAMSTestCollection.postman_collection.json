@@ -40,7 +40,7 @@
 						"getAll"
 					]
 				},
-				"description": "Generated from a curl request: \ncurl -X POST -d \\\"client_id=3092nxybyb0otqw18e8nh5nty\\\" -d \\\"locale=en-US\\\" -d \\\"currency=USD\\\" -F grant_type=password -F password=asdf1234 -F username=airbnbdev@gmail.com https://api.airbnb.com/v1/authorize"
+				"description": ""
 			},
 			"response": []
 		},
@@ -197,7 +197,7 @@
 						"getAll"
 					]
 				},
-				"description": "Generated from a curl request: \ncurl -X POST -d \\\"client_id=3092nxybyb0otqw18e8nh5nty\\\" -d \\\"locale=en-US\\\" -d \\\"currency=USD\\\" -F grant_type=password -F password=asdf1234 -F username=airbnbdev@gmail.com https://api.airbnb.com/v1/authorize"
+				"description": ""
 			},
 			"response": []
 		},
