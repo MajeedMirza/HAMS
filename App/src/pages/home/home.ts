@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AddNodePage } from '../add-node/add-node'
 import { NodeServiceProvider } from '../../providers/node-service/node-service';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'page-home',
@@ -9,36 +10,42 @@ import { NodeServiceProvider } from '../../providers/node-service/node-service';
 })
 export class HomePage {
 
-  nodes: any;
-
-  temperature: any;
-  humidity: any;
-  smoke: any;
-  flame: any;
+  nodes: any; // holds all nodes
+  socket:any; // socket for realtime update
 
   constructor(public navCtrl: NavController, public nodeServiceProvider: NodeServiceProvider) {
+    // Fetch node values on start
     this.getNodes();
-  }
-
-  createNode() {
-    this.navCtrl.push(AddNodePage);
-    console.log("hi");
-  }
-
-  getNodes() {
-    this.nodeServiceProvider.getNodes().then(data => {
-      this.nodes = data;
-      console.log(data);
-    }, err => {
-      console.log(err);
+    // Socket setup for realtime value update
+    this.socket = io(nodeServiceProvider.getServer());
+    this.socket.on('values', (node) => {
+      for (let i in this.nodes) {
+        if (this.nodes[i].id == node.id) {
+          this.nodes[i].values = node.values;
+        }
+      }
     });
   }
 
+  createNode() {
+    // Open AddNodePage to create a node
+    this.navCtrl.push(AddNodePage);
+  }
+
+  getNodes() {
+    // call nodeServiceProvider getNodes() function to get all nodes
+    this.nodeServiceProvider.getNodes().then(data => {
+      this.nodes = data;
+    }, err => {
+      // warn user about the error
+      alert(err);
+    });
+  }
+
+  // Pull down to refresh the data
   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
     this.getNodes();
     setTimeout(() => {
-        console.log('Async operation has ended');
         refresher.complete();
     }, 1500);
   }

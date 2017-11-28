@@ -31,7 +31,7 @@ int flameValue=0;
 float hum;
 float temp;
 float cm;
-int smoke;
+long smoke;
 int previousGaragePinState = LOW;
 float SmokeRo;
 String DATA;
@@ -61,7 +61,7 @@ void setup()
   READSENSORS= true;
   loopCount=0;
   dht.begin();
-  //callibrateSmokeSensor();
+  callibrateSmokeSensor();
 }
 void loop()
 {
@@ -73,6 +73,7 @@ void loop()
     getSmoke();
     getWater();
     getTempAndHum();
+    readUltraSonic();
     alarm  = checkDataThresholds();
     createAndFormatData();
     if (alarm != ""){
@@ -198,33 +199,25 @@ void Buzz(boolean buzz){
 void openCloseGarage(boolean GarageOpen){
     unsigned long  startTime = millis();
     if (GarageOpen) {
-      while (millis()-startTime < 30000){ // run for one minute 
-          digitalWrite(LED_pin, HIGH);
+      while (millis()-startTime < 5000){ // run for one minute 
           digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, HIGH); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, LOW);
           delay(2.5);
-          digitalWrite(LED_pin, LOW);
           digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, HIGH); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, LOW);
           delay(2.5);
-          digitalWrite(LED_pin, HIGH);
           digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, HIGH);
           delay(2.5);
-          digitalWrite(LED_pin, LOW);
           digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, HIGH);
           delay(2.5);
         }
    }
    else{
-      while (millis()-startTime < 30000){ // run for one minute
-        digitalWrite(LED_pin, HIGH);
+      while (millis()-startTime < 5000){ // run for one minute
         digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, HIGH);
         delay(2.5);
-        digitalWrite(LED_pin, LOW);
         digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, HIGH); digitalWrite(step_pin_3, HIGH); digitalWrite(step_pin_4, LOW);
         delay(2.5);
-        digitalWrite(LED_pin, HIGH);
         digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, HIGH); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, LOW);
         delay(2.5);
-        digitalWrite(LED_pin, LOW);
         digitalWrite(step_pin_1, HIGH); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, HIGH);
         delay(2.5);
     }
@@ -233,7 +226,7 @@ void openCloseGarage(boolean GarageOpen){
   digitalWrite(step_pin_1, LOW); digitalWrite(step_pin_2, LOW); digitalWrite(step_pin_3, LOW); digitalWrite(step_pin_4, LOW);
 }
 
-int readUltraSonic(){
+void readUltraSonic(){
   digitalWrite(TrigPin, LOW); //request data go low then high then low
   delayMicroseconds(2);
   digitalWrite(TrigPin, HIGH);
@@ -242,5 +235,5 @@ int readUltraSonic(){
 
   cm = pulseIn(EchoPin, HIGH) / 58.0; //The echo time is converted into cm
   cm = (int(cm * 100.0)) / 100.0; //Keep two decimal places
-  return cm;
+  
 }

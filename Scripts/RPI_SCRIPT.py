@@ -97,15 +97,18 @@ class RPI_Handler:
 
     def sendAlarm(self,data):
         print "sending alarm to server"
-        ##self.sendJSON(data, "/nodes/emergency");
+        self.sendJSON(data, "/nodes/emergency");
         print "sending alarm to nodes via udp"
         for addr in self.nodeAddrList:
             i = 0
             while True:
               print  "waiting for ack"
-              self.socket.sendto("TriggerAlarm", (addr, 2000))
-              ## WAIT FOR SEVER ACK HERE if not try again
-              message, address = self.socket.recvfrom(1024)
+              try:
+                self.socket.sendto("TriggerAlarm", (addr, 2000))
+                ## WAIT FOR SEVER ACK HERE if not try again
+                message, address = self.socket.recvfrom(1024)
+              except:
+                  print "COULDNT SEND OR RECIVED UDP"
               if "ACK" in message:
                   break
               if i >= 2: ## try three times before giving up on node
@@ -119,9 +122,12 @@ class RPI_Handler:
         for addr in self.nodeAddrList:
             i=0
             while True:
-              self.socket.sendto("ResetAlarm", (addr, 2000))
-              ## WAIT FOR SEVER ACK HERE if not try again
-              message, address = self.socket.recvfrom(1024)
+              try:
+                self.socket.sendto("ResetAlarm", (addr, 2000))
+                ## WAIT FOR SEVER ACK HERE if not try again
+                message, address = self.socket.recvfrom(1024)
+              except:
+                  print "COULDNT SEND OR RECIVED UDP"
               if "ACK" in message:
                   break
               if i >= 2: ## try three times before giving up on node
