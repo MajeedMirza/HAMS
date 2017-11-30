@@ -40,6 +40,7 @@ export class MyApp {
     //notification handler
     this.firebase.onNotificationOpen().subscribe(res => {
       console.log('notification opened.');
+      alert(res.body);
       //this.firebaseServiceProvider.setData(res);
       //this.showAlert(this.firebaseServiceProvider.getMessage());
     }, err => {
