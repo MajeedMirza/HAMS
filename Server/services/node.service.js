@@ -2,6 +2,7 @@ var config = require('config/config.json');
 var db = require('config/db.js');
 var socket = require('config/socket');
 var notifications = require("services/notification");
+var moment = require('moment')
 
 //Initialize collections for nodes and logs
 const nodes = db.monk().get('nodes')
@@ -64,9 +65,9 @@ function insertValues(payload){
 
 //Check any special cases and send a notification if needed
 function checkValues(payload){
-    if(payload.values.ultrasonic < config.specialCases.ultrasonic){
+    if(payload.values.ultrasonic > config.specialCases.ultrasonic){
         //create an emergency for these values on the server side
-        return emergency({id: payload.id, alarm: "Movement", time:payload.values.time});
+        return emergency({id: payload.id, alarm: "MOVEMENT", time:payload.values.time});
     }
 }
 
@@ -118,7 +119,7 @@ function emergency(message){
             var payload = {
                 notification: {
                     title: "EMERGENCY",
-                    body: message.id + ": " + message.alarm + " at " + message.time,
+                    body: nodeinfo.name + ": " + message.alarm + " at " + message.time,
                     sound: "default"
                 },
                 data : message

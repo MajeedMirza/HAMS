@@ -5,6 +5,6 @@
     "alarmWait": 1,
     "secret": "This is a secret",
     "specialCases": {
-        "ultrasonic": -1
+        "ultrasonic": 1500
     }
 }
