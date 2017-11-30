@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { AddNodePage } from '../add-node/add-node'
 import { NodeServiceProvider } from '../../providers/node-service/node-service';
 import * as io from 'socket.io-client';
+import moment from 'moment';
 
 @Component({
   selector: 'page-home',
@@ -22,6 +23,9 @@ export class HomePage {
       for (let i in this.nodes) {
         if (this.nodes[i].id == node.id) {
           this.nodes[i].values = node.values;
+          this.nodes[i].values.time = moment(node.values.time).format('MMMM Do, h:mm:ss a');
+          console.log("Socket io:");
+          console.log(this.nodes[i]);
         }
       }
     });
@@ -36,6 +40,10 @@ export class HomePage {
     // call nodeServiceProvider getNodes() function to get all nodes
     this.nodeServiceProvider.getNodes().then(data => {
       this.nodes = data;
+      console.log(this.nodes);
+      for (let i in this.nodes) {
+        this.nodes[i].values.time = moment(this.nodes[i].values.time).format('MMMM Do, h:mm:ss a');
+      }
     }, err => {
       // warn user about the error
       alert(err);

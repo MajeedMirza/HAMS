@@ -3,11 +3,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Garage Control</ion-title>
+    <ion-title>Logs</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <button ion-button block [disabled]="isOperating" (click)="open()">Open/Close</button>
+  {{logs}}
 </ion-content>

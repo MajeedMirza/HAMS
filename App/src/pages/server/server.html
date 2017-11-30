@@ -13,7 +13,7 @@
   
   <ion-item>
     <ion-label fixed>Server</ion-label>
-    <ion-input type="text" value=""></ion-input>
+    <ion-input type="text" [(ngModel)]="ip" value=""></ion-input>
   </ion-item>
   <button ion-button block (click)="setServer()">Set Server</button>
 </ion-content>

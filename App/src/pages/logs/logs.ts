@@ -3,27 +3,25 @@ import { NavController, NavParams } from 'ionic-angular';
 import { NodeServiceProvider } from '../../providers/node-service/node-service';
 
 @Component({
-  selector: 'page-server',
-  templateUrl: 'server.html',
+  selector: 'page-logs',
+  templateUrl: 'logs.html',
 })
-export class ServerPage {
+export class LogsPage {
 
-  server: string;
-  ip: string;
+  logs: any;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public nodeServiceProvider: NodeServiceProvider) {
-      this.server = nodeServiceProvider.getServer();
+      nodeServiceProvider.getLogs().then((data) => {
+        this.logs = JSON.stringify(data);
+      }, (err) =>{
+
+      })
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ServerPage');
-  }
-
-  setServer() {
-    this.nodeServiceProvider.setServer(this.ip);
-    this.server = this.nodeServiceProvider.getServer();
+    
   }
 
 }

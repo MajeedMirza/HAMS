@@ -35,6 +35,15 @@
             <ion-item>
                 <ion-icon name="flame" item-start></ion-icon>Flame: {{node.values.flame}}
             </ion-item>
+            <ion-item>
+                <ion-icon name="alert" item-start></ion-icon>Ultrasonic: {{node.values.ultrasonic}}
+            </ion-item>
+            <ion-item>
+                <ion-icon name="water" item-start></ion-icon>Water Level: {{node.values.water}}
+            </ion-item>
+            <ion-item class="small-font">
+                Last Synced: {{node.values.time}}
+            </ion-item>
           </ion-list>
     </ion-card-content>
   </ion-card>
