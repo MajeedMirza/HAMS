@@ -22,8 +22,10 @@ export class AddNodePage {
   }
 
   createNode() {
-    this.nodeServiceProvider.createNode(this.name, this.id, this.type, this.location).then(() => {
+    this.nodeServiceProvider.createNode(this.name, this.id, this.type, this.location).then((res) => {
       this.navCtrl.pop();
+    }, (err) => {
+      console.log(err);
     })
   }
 

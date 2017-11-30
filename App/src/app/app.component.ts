@@ -7,6 +7,7 @@ import { Firebase } from '@ionic-native/firebase';
 import { HomePage } from '../pages/home/home';
 import { GaragePage } from '../pages/garage/garage';
 import { ServerPage } from '../pages/server/server';
+import { LogsPage } from '../pages/logs/logs';
 
 @Component({
   templateUrl: 'app.html'
@@ -49,7 +50,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Garage', component: GaragePage},
-      { title: 'Server', component: ServerPage}
+      { title: 'Server', component: ServerPage},
+      { title: 'Logs', component: LogsPage}
     ];
 
   }

@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 export class NodeServiceProvider {
 
     // Server IP Address
-    server = 'http://172.17.74.11:3001';
+    server: string = 'http://172.17.108.250:3001';
 
     constructor(public http: Http) {
 
@@ -86,11 +86,24 @@ export class NodeServiceProvider {
         })
     }
 
-    setServer(ip) {
+    setServer(ip:string) {
         this.server = "http://" + ip + ":3001";
     }
 
     getServer() {
         return this.server;
+    }
+
+    getLogs() {
+        return new Promise((resolve, reject) => {
+            this.http.get(this.server + '/api/nodes/getLogs/').map(res => res.json()).subscribe(
+                data => {
+                    resolve(data);
+                },
+                err => {
+                    reject(err);
+                }
+            )
+        });
     }
 }

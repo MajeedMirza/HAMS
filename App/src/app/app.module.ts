@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { AddNodePage } from '../pages/add-node/add-node';
 import { GaragePage } from '../pages/garage/garage';
 import { ServerPage } from '../pages/server/server';
+import { LogsPage } from '../pages/logs/logs'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,7 +21,8 @@ import { NodeServiceProvider } from '../providers/node-service/node-service';
     HomePage,
     AddNodePage,
     GaragePage,
-    ServerPage
+    ServerPage,
+    LogsPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { NodeServiceProvider } from '../providers/node-service/node-service';
     HomePage,
     AddNodePage,
     GaragePage,
-    ServerPage
+    ServerPage,
+    LogsPage
   ],
   providers: [
     StatusBar,
