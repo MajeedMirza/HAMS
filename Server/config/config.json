@@ -3,6 +3,7 @@
     "connectionStringTEST":"mongodb://test:test@ds111336.mlab.com:11336/hamstest",
     "TEST": false,
     "alarmWait": 1,
+    "secret": "This is a secret",
     "specialCases": {
         "ultrasonic": -1
     }
