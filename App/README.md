@@ -1,26 +1,26 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# Home Automation and Monitoring System App
 
-## How to use this template
-
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
-
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
-
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start mySideMenu sidemenu
+## Setup
+1. Get [Node.js](https://nodejs.org/en/)
+2. Install Ionic and Cordova
+```
+npm install -g ionic cordova
+```
+3. Clone the repository
+4. Install all required packages
+```
+npm install
 ```
 
-Then, to run it, cd into `mySideMenu` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
+## Testing
+Testing can be done via a browser or a mobile device.
+To test it on a browser
+```
+ionic server
+```
+or 
+```
+ionic lab
 ```
 
-Substitute ios for android if not on a Mac.
-
+To test it on the device, check this [link](https://ionicframework.com/docs/intro/deploying/)
