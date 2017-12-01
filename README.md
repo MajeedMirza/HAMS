@@ -1,4 +1,4 @@
-# HAMS ![HAMS](https://github.com/MajeedMirza/HAMS/blob/master/App/resources/icon.png)
+# HAMS <img src="https://github.com/MajeedMirza/HAMS/blob/master/App/resources/icon.png" width="5%" height="5%" />
 The Home Automation and Monitoring System
 
 ## About
