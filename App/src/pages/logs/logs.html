@@ -8,6 +8,37 @@
 </ion-header>
 
 
-<ion-content padding>
-  {{logs}}
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+          pullingText="Pull to refresh"
+          refreshingText="Refreshing...">
+      </ion-refresher-content>
+  </ion-refresher>
+  <ion-item-group *ngFor="let log of logs | slice:0:10; let i = index">
+    <ion-item-divider color="light">{{getTime(log.values.time)}}</ion-item-divider>
+    <ion-list>
+        <ion-item>
+            ID: {{log.id}}
+        </ion-item>
+        <ion-item>
+            Temperature: {{log.values.temp}}
+        </ion-item>
+        <ion-item>
+            Humidity: {{log.values.humid}}
+        </ion-item>
+        <ion-item>
+            Smoke: {{log.values.smoke}}
+        </ion-item>
+        <ion-item>
+            Flame: {{log.values.flame}}
+        </ion-item>
+        <ion-item>
+            Ultrasonic: {{log.values.ultrasonic}}
+        </ion-item>
+        <ion-item>
+            Water Level: {{log.values.water}}
+        </ion-item>
+      </ion-list>
+  </ion-item-group>
 </ion-content>

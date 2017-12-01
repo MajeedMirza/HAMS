@@ -1,14 +1,18 @@
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-menu [content]="content" id="menu-material">
+  
+  
 
   <ion-content>
-    <ion-list>
+
+    <div class="menu-header">
+        <img class="user-avatar round" src="http://icons.iconarchive.com/icons/icons8/android/512/Users-User-icon.png"/>
+        <p class="name">John Doe</p>
+        <p class="description">johndoeee@gmail.com</p>
+    </div>
+
+    <ion-list no-lines>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        <ion-icon [name]="p.icon" item-left></ion-icon>{{p.title}}
       </button>
     </ion-list>
   </ion-content>

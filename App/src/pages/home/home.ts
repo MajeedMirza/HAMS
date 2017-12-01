@@ -46,7 +46,7 @@ export class HomePage {
       }
     }, err => {
       // warn user about the error
-      alert(err);
+      // alert(err);
     });
   }
 

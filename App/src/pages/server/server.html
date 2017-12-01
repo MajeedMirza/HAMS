@@ -9,11 +9,12 @@
 
 
 <ion-content padding>
-  <ion-item>Server: {{server}}</ion-item>
-  
+  <ion-list no-lines inset>
+  <ion-item style="text-align:center">{{server}}</ion-item>
   <ion-item>
     <ion-label fixed>Server</ion-label>
-    <ion-input type="text" [(ngModel)]="ip" value=""></ion-input>
+    <ion-input type="text" [(ngModel)]="ip" placeholder="IP Address"></ion-input>
   </ion-item>
-  <button ion-button block (click)="setServer()">Set Server</button>
+  </ion-list>
+  <button ion-button block outline (click)="setServer()">Set Server</button>
 </ion-content>
