@@ -1,4 +1,4 @@
-# HAMS
+# HAMS ![HAMS](https://github.com/MajeedMirza/HAMS/blob/master/App/resources/icon.png)
 The Home Automation and Monitoring System
 
 ## About
@@ -14,7 +14,7 @@ In case of an emergency all units of the system will sound an alarm and flash a 
 
 This project will help reduce damage to users’ homes by quickly identifying an emergency and notifying them of the event. In addition to giving the users the ability to monitor their houses at all times, the system will also allow the users to check on their garage door and open or close it remotely from anywhere with an internet connection. HAMS offers live sensor readings to users through the HAMS app, all sensor values are logged to a secure cloud database. Log history is available for users to view in the HAMS app as well.
 
-## Functional Requirements
+## Why HAMS?
 - HAMS sounds alarms within the house if an emergency is detected
 - HAMS notifies users by pushing notifications to their phones if an emergency is detected 
 - HAMS allows users constant monitoring of their homes through a mobile app with live readings from sensors
