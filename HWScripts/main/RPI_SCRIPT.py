@@ -3,29 +3,27 @@ from socket import *
 import json
 import requests
 import datetime
-##import RPi.GPIO as GPIO
-from ArduinoStub import ArduinoStub
 from time import sleep
+import RPi.GPIO as GPIO
+
 class RPI_Handler:
     def __init__(self):
         self.ser=serial.Serial("COM4",9600)
         self.nodeAddrList=["192.168.2.83"] ## input node ips in here
-        ##self.SERVERAPI = "http://172.17.82.126:3001/api"
+        self.SERVERAPI = "http://172.17.82.126:3001/api"
         self.NODE_ID = 'Test1'
         self.garageStatus=""
-        self.ArduinoStub = ArduinoStub(24, 30, 0, 0, 0, 0, True)  ## initialize arduino stub class
         self.socket= socket(AF_INET, SOCK_DGRAM)
         self.socket.settimeout(1)
 
     def main(self):
         print "starting up"
-        ##GPIO.setmode(GPIO.BCM)
-       ## GPIO.setup(2, GPIO.OUT)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(2, GPIO.OUT)
         previousAlarm = False ## keep track of alarm to reset it
         while True:
             print "getting values from arduino "
             values=self.getSensorData() ## get the sensor data
-            ##values = self.ArduinoStub.getTestSensorValues(True)
             print values
            ## try:
             if "alarm" in values:
@@ -45,7 +43,7 @@ class RPI_Handler:
                     previousAlarm = False
                     self.resetAlarm()
                 print "sending data to server "
-                ##self.sendJSON(data, "/nodes/values")
+                self.sendJSON(data, "/nodes/values")
            ## except:
              ##  print("EXCEPTION IN mains while loop, probably server or udp related")
             sleep(0.1)
@@ -63,7 +61,7 @@ class RPI_Handler:
     def garageStatusUpdate(self, data): ## to update garage status
         if data != self.garageStatus:
             print "turned off garage gpio pin"
-            ##GPIO.output(2, 0) ## change pin number here // used to reset garage open close signal
+            GPIO.output(2, 0) ## change pin number here // used to reset garage open close signal
             print "gpio 2 low"
         self.garageStatus=data
 
