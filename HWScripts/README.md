@@ -1,0 +1,1 @@
+# Home Automation and Monitoring System Hardware Scripts for arduino and RPI
