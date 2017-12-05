@@ -1,3 +1,4 @@
+#@author Kenan El-Gaouny
 from ArduinoStub import ArduinoStub
 from RPI_SCRIPT import RPI_Handler
 RPI_Handler = RPI_Handler() ## intiate object for rpi script

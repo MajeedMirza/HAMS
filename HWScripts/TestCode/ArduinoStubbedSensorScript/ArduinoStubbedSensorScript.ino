@@ -1,3 +1,4 @@
+#@author Kenan El-Gaouny
 // global variable definitions to store sensor readings and data
 float hum;  
 float temp; 

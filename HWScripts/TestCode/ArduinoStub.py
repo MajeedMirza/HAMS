@@ -1,3 +1,5 @@
+
+#@author Kenan El-Gaouny
 class ArduinoStub:
     def __init__(self, temp, humid, smoke, water, flame, ultrasonic, garage):
       self.temp = temp

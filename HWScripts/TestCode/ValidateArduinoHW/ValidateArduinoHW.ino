@@ -1,4 +1,4 @@
-
+#@author Kenan El-Gaouny
 #include <DHT.h>
 // output pin for the LED
 int LED_pin = 13;

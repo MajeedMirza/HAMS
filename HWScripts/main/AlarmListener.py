@@ -1,6 +1,7 @@
+#@author Kenan El-Gaouny
 from socket import *
 import RPi.GPIO as GPIO
-## this script keeps listening for UDP DATA indicating an alarm and triggers the alarm
+## this script keeps listening for UDP DATA indicating an alarm and triggers the alarm on the arduino
 socket = socket(AF_INET, SOCK_DGRAM)
 socket.bind(('', 2000))
 GPIO.setmode(GPIO.BCM)

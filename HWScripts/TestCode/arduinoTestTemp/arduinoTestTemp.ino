@@ -1,3 +1,4 @@
+#@author Kenan El-Gaouny
 #include <DHT.h>
 #define DHTPIN 3
 #define DHTTYPE DHT22 

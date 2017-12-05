@@ -1,3 +1,4 @@
+#@author Kenan El-Gaouny
 import serial
 from socket import *
 import json
@@ -7,7 +8,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 
 class RPI_Handler:
-    def __init__(self):
+    def __init__(self): ## initialize instance and set variables
         self.ser=serial.Serial("COM4",9600)
         self.nodeAddrList=["192.168.2.83"] ## input node ips in here
         self.SERVERAPI = "http://172.17.82.126:3001/api"
@@ -25,32 +26,32 @@ class RPI_Handler:
             print "getting values from arduino "
             values=self.getSensorData() ## get the sensor data
             print values
-           ## try:
-            if "alarm" in values:
-                print "got alarm creating json and sendig"
-                data = self.createAlarmJSON(values) ## alarm values are in next packet
-                values = self.getSensorData() ## alarm values in here## have to choose how to format, ask majeed TODO
-                self.sendAlarm(data)
-                previousAlarm = True
-            else:
-                print "got data"
-                data = self.createJSON(values)
-                print data
-                print "updating garage sttatus from data"
-                self.garageStatusUpdate(data["values"]["garage"])
-                if previousAlarm:
-                    print "sending reset alarm to other nodes to disable alarms"
-                    previousAlarm = False
-                    self.resetAlarm()
-                print "sending data to server "
-                self.sendJSON(data, "/nodes/values")
-           ## except:
-             ##  print("EXCEPTION IN mains while loop, probably server or udp related")
+            try:
+                if "alarm" in values:
+                    print "got alarm creating json and sendig"
+                    data = self.createAlarmJSON(values) ## alarm  recieved create json for it
+                    values = self.getSensorData() ## alarm values in here
+                    self.sendAlarm(data)
+                    previousAlarm = True
+                else:
+                    print "got data" ## normal data packet recieved
+                    data = self.createJSON(values)
+                    print data
+                    print "updating garage sttatus from data"
+                    self.garageStatusUpdate(data["values"]["garage"])
+                    if previousAlarm:
+                        print "sending reset alarm to other nodes to disable alarms" ## used to disable alarms on other nodes if trigerred earlier
+                        previousAlarm = False
+                        self.resetAlarm()
+                    print "sending data to server "
+                    self.sendJSON(data, "/nodes/values")
+            except:
+               print("EXCEPTION IN mains while loop, probably server or udp related")
             sleep(0.1)
 
 
 
-    def getSensorData(self):
+    def getSensorData(self): ## read values on serial port sent by arduino
         complete = ""
         while (True):
             data = self.ser.read()
@@ -61,7 +62,7 @@ class RPI_Handler:
     def garageStatusUpdate(self, data): ## to update garage status
         if data != self.garageStatus:
             print "turned off garage gpio pin"
-            GPIO.output(2, 0) ## change pin number here // used to reset garage open close signal
+            GPIO.output(2, 0)
             print "gpio 2 low"
         self.garageStatus=data
 

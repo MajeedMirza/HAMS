@@ -1,4 +1,4 @@
-
+#@author Kenan El-Gaouny
                
   float RS_gas; // Get value of RS in a GAS
   float R0=0;                     // Get the value of R0 via in H2
