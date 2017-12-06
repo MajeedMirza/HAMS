@@ -1,4 +1,4 @@
-# Home Automation and Monitoring System Server
+# HAMS Server
 Author: Majeed Mirza
 
 ## About
