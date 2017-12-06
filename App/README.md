@@ -2,7 +2,7 @@
 Author: Hooseon Yim
 ## About
 The HAMS App allows users to interact and observe various environmental aspect. The app also sends notifications in case of emergency.
-Please check codes in /src/pages folder for detail.
+Please check codes in [/src/pages](https://github.com/MajeedMirza/HAMS/tree/master/App/src/pages) folder for detail.
 ## Setup
 1. Install [Node.js](https://nodejs.org/en/)
 2. Install Ionic and Cordova
