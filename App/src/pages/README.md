@@ -1,5 +1,5 @@
 # About
-* Please note that all the pages below use /src/providers/node-service/node-service.ts for any HTTP requests. Please check the file for more information. 
+* Please note that all the pages below use /src/providers/node-service/node-service.ts[https://github.com/MajeedMirza/HAMS/blob/master/App/src/providers/node-service/node-service.ts] for any HTTP requests. Please check the file for more information. 
 ## add-node
 - Allows a user to add additional nodes
 ## garage
