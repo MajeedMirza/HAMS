@@ -14,8 +14,8 @@ var cors = require('cors');
 var io = require('config/socket')
 
 config.port = "3001";
-config.Ip = "172.17.108.250";
-//config.Ip = "localhost"
+config.Ip = "localhost"
+//config.Ip = "192.168.0.10";
 config.portUrl = "http://" + config.Ip + ":" + config.port;
 config.apiUrl = config.portUrl + "/api"
 
@@ -29,15 +29,13 @@ app.use(cors());
 //app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/users/authenticate'] }));
 
 // routes
-app.use('/test', require('./controllers/test.controller'));
-app.use('/login', require('./controllers/login.controller'));
-app.use('/app', require('./controllers/app.controller'));
+app.use('/HAMS', require('./controllers/HAMS.controller'));
 app.use('/api/users', require('./controllers/api/users.controller'));
 app.use('/api/nodes', require('./controllers/api/nodes.controller'));
 
 // make '/app' default route
 app.get('/', function (req, res) {
-    return res.redirect('/app');
+    return res.redirect('/HAMS');
 });
 
 

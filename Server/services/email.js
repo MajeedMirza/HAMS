@@ -12,7 +12,7 @@ function sendMail(sendTo, subject, body){
         secure: true, // secure:true for port 465, secure:false for port 587
         auth: {
             user: 'HAMSnotifcation@gmail.com',
-            pass: 'HAMS1notifcation'
+            pass: '---' //Put password here
         }
     });
 

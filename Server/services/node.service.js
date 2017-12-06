@@ -10,19 +10,19 @@ const logs = db.monk().get('logs')
  
 //Object containing all service functions called externally 
 var service = {};
-service.create = create;
-service.getAll = getAll;
+service.create = createNewNode;
+service.getAll = getAllNodes;
 service.getLogs = getLogs;
-service.insertValues = insertValues;
-service.garage = garage;
-service.emergency = emergency;
+service.insertValues = insertLogValues;
+service.garage = sendGarageCommand;
+service.emergency = sendEmergencyNotification;
 service.clearAll = clearAll;
 
 //export all methods needed externally 
 module.exports = service;
 
 //Creates a new node in the nodes collection
-function create(newNode){
+function createNewNode(newNode){
     //check if it already exists, if it does throw an error
     return getNode(newNode.id).then(function(nodeinfo){
         if (nodeinfo){
@@ -44,7 +44,7 @@ function create(newNode){
 }
 
 //Inserts values into the logs collection
-function insertValues(payload){
+function insertLogValues(payload){
     if(!payload.id){
         throw new Error('No id received');
     }
@@ -72,7 +72,7 @@ function checkValues(payload){
 }
 
 //Returns all nodes in the nodes collection
-function getAll(){
+function getAllNodes(){
     return nodes.find({});
 }
 
@@ -87,7 +87,7 @@ function getLogs(){
 }
 
 //Sends a garage command to nodes listening to the topic
-function garage(open){
+function sendGarageCommand(open){
     msg = {open:open}
     return socket.emit('garage', msg);
 }
@@ -106,7 +106,7 @@ function updateEmergencyTime(id, time){
 
 //Sends a notification if the time between the last emergency and the current 
 //emergency exceed a defined wait time
-function emergency(message){
+function sendEmergencyNotification(message){
     //get all node information
     return getNode(message.id).then(function(nodeinfo){
         var lastEmergency = nodeinfo.lastEmergency;
