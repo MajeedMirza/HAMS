@@ -2,14 +2,14 @@
 The Home Automation and Monitoring System
 
 ## Index
-The HAMS app source code can be found at:  
-https://github.com/MajeedMirza/HAMS/tree/master/App
+The HAMS **App** source code can be found at:  
+[App](App)
 
-The HAMS hardware source code can be found at:  
-https://github.com/MajeedMirza/HAMS/tree/master/HWScripts
+The HAMS **Hardware Scripts** source code can be found at:  
+[Scripts](HWScripts)
 
-The HAMS server source code can be found at:  
-https://github.com/MajeedMirza/HAMS/tree/master/Server
+The HAMS **Server** source code can be found at:  
+[Server](Server)
 
 ## About
 The Home Monitoring and Automation System or HAMS allows users to remotely interact and observe various environmental aspects of their homes remotely through a mobile app. The system monitors the following:
