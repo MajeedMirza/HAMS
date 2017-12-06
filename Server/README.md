@@ -10,7 +10,7 @@ Get [Node.js](https://nodejs.org/en/)
 
 Clone the project
 
-npm is the default package manager for Node (included in Node installation) and is used to install the [dependencies](https://github.com/MajeedMirza/HAMS/blob/master/Server/package.json) for the project. 
+npm is the default package manager for Node (included in Node installation) and is used to install the [dependencies](package.json) for the project. 
 
 From within the project folder run this command in the terminal to install all required packages:
 ```
@@ -25,4 +25,4 @@ node server.js
 Go to [http://localhost:3001](http://localhost:3001) in your browser to confirm that the HAMS Server is up and running.
 
 ## Testing
-To run tests change the TEST variable to true in [config.json](config/config.json).
+To run tests change the TEST variable to true in [config.json](config/config.json) then restart the server.
