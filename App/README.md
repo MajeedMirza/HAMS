@@ -1,4 +1,4 @@
-# Home Automation and Monitoring System App
+# HAMS App
 Author: Hooseon Yim
 ## About
 The HAMS App allows users to interact and observe various environmental aspect. The app also sends notifications in case of emergency.
