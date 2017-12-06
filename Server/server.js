@@ -15,7 +15,6 @@ var io = require('config/socket')
 
 config.port = "3001";
 config.Ip = "localhost"
-//config.Ip = "192.168.0.10";
 config.portUrl = "http://" + config.Ip + ":" + config.port;
 config.apiUrl = config.portUrl + "/api"
 
@@ -25,8 +24,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({ secret: config.secret, resave: false, saveUninitialized: true }));
 app.use(cors());
-// use JWT auth to secure the api
-//app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/users/authenticate'] }));
 
 // routes
 app.use('/HAMS', require('./controllers/HAMS.controller'));
