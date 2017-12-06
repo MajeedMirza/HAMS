@@ -2,13 +2,13 @@
 The Home Automation and Monitoring System
 
 ## Index
-The HAMS app source code can be found at: 
+The HAMS app source code can be found at:  
 https://github.com/MajeedMirza/HAMS/tree/master/App
 
-The HAMS hardware source code can be found at:
+The HAMS hardware source code can be found at:  
 https://github.com/MajeedMirza/HAMS/tree/master/HWScripts
 
-The HAMS server source code can be found at:
+The HAMS server source code can be found at:  
 https://github.com/MajeedMirza/HAMS/tree/master/Server
 
 ## About
