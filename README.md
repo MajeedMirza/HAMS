@@ -2,13 +2,9 @@
 The Home Automation and Monitoring System
 
 ## Index
-The HAMS **App** source code and installation instructions can be found at:
+The HAMS **App**, **Hardware Scripts**, and **Server** source code and installation instructions can be found at:
 - [App](App)  
-
-The HAMS **Hardware Scripts** source code and installation instructions can be found at:
 - [Scripts](HWScripts)  
-
-The HAMS **Server** source code and installation instructions can be found at:
 - [Server](Server)  
 
 ## About
