@@ -1,5 +1,5 @@
 # <a href="https://github.com/MajeedMirza/HAMS"><img border="0" alt="The Home Monitoring and Automation System" src="https://github.com/MajeedMirza/HAMS/blob/master/App/resources/icon.png" width="34" height="34" /></a> HAMS 
-The Home Automation and Monitoring System
+The **H**ome **A**utomation and **M**onitoring **S**ystem
 
 ## Index
 The HAMS **App**, **Hardware Scripts**, and **Server** source code and installation instructions can be found at:
