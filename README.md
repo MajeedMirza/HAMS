@@ -3,13 +3,13 @@ The Home Automation and Monitoring System
 
 ## Index
 The HAMS **App** source code and installation instructions can be found at:
-[App](App)  
+- [App](App)  
 
 The HAMS **Hardware Scripts** source code and installation instructions can be found at:
-[Scripts](HWScripts)  
+- [Scripts](HWScripts)  
 
 The HAMS **Server** source code and installation instructions can be found at:
-[Server](Server)  
+- [Server](Server)  
 
 ## About
 The Home Monitoring and Automation System or HAMS allows users to remotely interact and observe various environmental aspects of their homes remotely through a mobile app. The system monitors the following:
