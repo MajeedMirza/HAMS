@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2017 Majeed Mirza
+Copyright (c) 2017 Hooseon Yim, Kenan El-Gaouny, Majeed Mirza
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
