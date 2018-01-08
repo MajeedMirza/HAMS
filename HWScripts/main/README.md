@@ -1,5 +1,3 @@
-Author: Kenan EL-GAOUNY
-
 ## Setup
 - To run the hardware scripts upload the [arduino script](ArduinoScript/ArduinoScript.ino) onto the arduino after all the hardware connections are made
 - Connect the Arduino to the Raspberry Pi and run the [AlarmListener](AlarmListener.py) and [RPI_SCRIPT](RPI_SCRIPT.py) scripts
