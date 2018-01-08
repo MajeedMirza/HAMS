@@ -8,7 +8,9 @@ The HAMS **App**, **Hardware Scripts**, and **Server** source code and installat
 - [Server](Server)  
 
 ## About
-The Home Monitoring and Automation System or HAMS allows users to remotely interact and observe various environmental aspects of their homes remotely through a mobile app. The system monitors the following:
+The Home Monitoring and Automation System or HAMS is an **open source** project that provides a starting point for home monitoring and automation. HAMS includes code for a fully functional server (Node.js) and database (MongoDB), a hybrid mobile app (Ionic), and scripts (Python and C) for nodes (Raspberry Pi + Aruduino). 
+
+The system provides the software needed to monitor the following:
 - Temperature
 - Humidity
 - Smoke, Gas presence
@@ -18,9 +20,10 @@ The Home Monitoring and Automation System or HAMS allows users to remotely inter
 
 In case of an emergency all units of the system will sound an alarm and flash a red LED to alert residents in the house, as well as send mobile notifications to notify home owners of any events.
 
-This project will help reduce damage to users’ homes by quickly identifying an emergency and notifying them of the event. In addition to giving the users the ability to monitor their houses at all times, the system will also allow the users to check on their garage door and open or close it remotely from anywhere with an internet connection. HAMS offers live sensor readings to users through the HAMS app, all sensor values are logged to a secure cloud database. Log history is available for users to view in the HAMS app as well.
-
 ## Why HAMS?
+HAMS gives you a starting point for a customized home monitoring solution. All data is handled by you and the way the code handles the data is fully transparent. By providing code that works for a variety of devices, new devices can easily be integrated by using existing code as an example. HAMS allows you to control your safety, security, and privacy.
+
+## What exactly can HAMS do?
 - HAMS sounds alarms within the house if an emergency is detected
 - HAMS notifies users by pushing notifications to their phones if an emergency is detected 
 - HAMS allows users constant monitoring of their homes through a mobile app with live readings from sensors
