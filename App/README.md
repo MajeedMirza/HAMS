@@ -1,5 +1,5 @@
 # <a href="https://github.com/MajeedMirza/HAMS"><img border="0" alt="The Home Monitoring and Automation System" src="../Resources/icon.png" width="34" height="34" /></a> HAMS App
-Author: Hooseon Yim
+Primary developer: Hooseon Yim
 ## About
 The HAMS App allows users to interact and observe various environmental aspect. The app also sends notifications in case of emergency.
 Please check [pages folder](src/pages) for more detail.
