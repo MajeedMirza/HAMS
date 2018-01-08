@@ -32,10 +32,10 @@
 #menu-material {
     .menu-header {
         padding: 5px 15px;
-        background-image: url('https://graphicflip.com/wp-content/uploads/2016/02/40-backgrounds-material.jpg');
         background-size: cover;
+        background-color: lightgray;
         text-align: center;
-        color: white;
+        color: black;
         .name {
             font-weight: 500;
             margin-bottom: 3px;
@@ -43,14 +43,11 @@
         .description {
             margin-top: 0;
             margin-bottom: 5px;
+            font-weight: 500;
         }
     }
-    .user-avatar {
-        max-width: 125px;height: 125px;
-        padding: .5em;
-        height: 12vh;
-        border-radius: 50%;
-        background-color: white;
+    .H-icon {
+        width: 65px;height: 65px;
     }
     h3,
     .label,
