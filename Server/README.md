@@ -1,5 +1,5 @@
 # <a href="https://github.com/MajeedMirza/HAMS"><img border="0" alt="The Home Monitoring and Automation System" src="../Resources/icon.png" width="34" height="34" /></a> HAMS Server
-Primary developer: [Majeed Mirza](https://github.com/MajeedMirza)
+Primary Developer: [Majeed Mirza](https://github.com/MajeedMirza)
 
 ## About
 The main logic for the server is located in the [node.service.js](services/node.service.js) file.
