@@ -1,5 +1,5 @@
 # <a href="https://github.com/MajeedMirza/HAMS"><img border="0" alt="The Home Monitoring and Automation System" src="../Resources/icon.png" width="34" height="34" /></a> HAMS Hardware Scripts
-Primary developer: [Kenan El-Gaouny](https://github.com/kinanjaouni)
+Primary Developer: [Kenan El-Gaouny](https://github.com/kinanjaouni)
 
 ## About
 Scripts needed for the Arduino and Raspberry Pi components of HAMS.
